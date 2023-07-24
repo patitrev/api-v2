@@ -66,3 +66,9 @@ async def create_item(item: schemas.Item, db: Session = Depends(get_db)):
     controller.create_item(db, item)
     return {**item.dict()}
 
+    # rota para obter os dados de um campi
+@app.get("/item/{nome_campi}", response_model=schemas.Item)
+def read_item(nome_campi: str, skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    item = controller.getItem(nome_campi, db, skip=skip, limit=limit)
+    print(item)
+    return item
